@@ -1,6 +1,7 @@
 import locales.locale_en as locale
-from os import system
 import sys
+from handlers.menu.event_handler import create_new_event
+from os import system
 
 
 def add_event() -> None:
@@ -8,7 +9,8 @@ def add_event() -> None:
     Open menu Add an event
     """
     system(locale.SYSTEM_CLEAR)
-    input("Add an event")
+    print(locale.ADD_EVENT_INFO)
+    create_new_event()
     system(locale.SYSTEM_CLEAR)
 
 
@@ -63,6 +65,7 @@ def print_menu(menu: dict) -> None:
     print(locale.MENU)
     for index, title in menu.items():
         print("\t", locale.BOLD, index, ".", locale.END, title, sep="")
+    print(locale.SEPARATOR)
 
 
 def select_menu_item(functions: list, menu_titles: list[str]) -> list:
