@@ -5,9 +5,7 @@ CGREEN = "\033[32m"
 END = "\033[0m"
 
 # Data files
-ANSWERS_FILE = "data/answers.csv"
-QUESTIONS_FILE = "data/questions.csv"
-RESULTS_FILE = "data/results.csv"
+EVENTS_FILE = "data/events.csv"
 
 # File opening modes
 FILE_APPEND = "a"
@@ -16,6 +14,12 @@ FILE_READ = "r"
 
 # Commands
 SYSTEM_CLEAR = "clear"
+
+# CSV field names
+EVENT_TIME = "start_time"
+EVENT_TITLE = "title"
+EVENT_DESCRIPTION = "description"
+EVENT_FIELD_NAMES = [EVENT_TIME, EVENT_TITLE, EVENT_DESCRIPTION]
 
 # Menu
 SEPARATOR = "====================================="
@@ -57,6 +61,8 @@ ADD_EVENT_INVALID_DATE = (
 ADD_EVENT_INVALID_TIME = (
     f"{CRED}Invalid time format!\nEnter time in this format: {BOLD}HH:MM{END}"
 )
+ADD_EVENT_EXIST = f"{CRED}Another event exists at this time!{END}"
+
 ADD_EVENT_TOO_LONG_TITLE = (
     f"{CRED}Title is to long ("
     + "{lenght})!\nMake it up to "

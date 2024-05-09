@@ -5,9 +5,6 @@ from os import system
 
 
 def add_event() -> None:
-    """
-    Open menu Add an event
-    """
     system(locale.SYSTEM_CLEAR)
     print(locale.ADD_EVENT_INFO)
     create_new_event()
@@ -15,53 +12,35 @@ def add_event() -> None:
 
 
 def remove_event() -> None:
-    """
-    Open menu Remove an event
-    """
     system(locale.SYSTEM_CLEAR)
     input("Remove an event")
     system(locale.SYSTEM_CLEAR)
 
 
 def show_schedule() -> None:
-    """
-    Open menu Show schedule
-    """
     system(locale.SYSTEM_CLEAR)
     input("Show schedule")
     system(locale.SYSTEM_CLEAR)
 
 
 def search_event() -> None:
-    """
-    Open menu Search for an event
-    """
     system(locale.SYSTEM_CLEAR)
     input("Search for an event")
     system(locale.SYSTEM_CLEAR)
 
 
 def show_holidays() -> None:
-    """
-    Open menu Show public holidays in LT
-    """
     system(locale.SYSTEM_CLEAR)
     input("Show public holidays in LT")
     system(locale.SYSTEM_CLEAR)
 
 
 def exit() -> None:
-    """
-    Exit the program
-    """
     system(locale.SYSTEM_CLEAR)
     sys.exit(locale.GOODBYE)
 
 
 def print_menu(menu: dict) -> None:
-    """
-    Prints out provided menu items
-    """
     print(locale.MENU)
     for index, title in menu.items():
         print("\t", locale.BOLD, index, ".", locale.END, title, sep="")
@@ -69,9 +48,6 @@ def print_menu(menu: dict) -> None:
 
 
 def select_menu_item(functions: list, menu_titles: list[str]) -> list:
-    """
-    General function that returns selected menu item from provided array
-    """
     menu = dict(enumerate(menu_titles, start=1))
 
     print_menu(menu)
@@ -88,9 +64,6 @@ def select_menu_item(functions: list, menu_titles: list[str]) -> list:
 
 
 def open_main_menu() -> None:
-    """
-    Function prints "Welcome screen" and displays of main menu items
-    """
     print(
         locale.BOLD, locale.WELCOME, locale.END, locale.MAIN_MENU_INSTRUCTION, sep="\n"
     )
