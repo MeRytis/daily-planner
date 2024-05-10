@@ -16,10 +16,15 @@ FILE_READ = "r"
 SYSTEM_CLEAR = "clear"
 
 # CSV field names
+EVENT_DATE = "start_date"
 EVENT_TIME = "start_time"
 EVENT_TITLE = "title"
 EVENT_DESCRIPTION = "description"
-EVENT_FIELD_NAMES = [EVENT_TIME, EVENT_TITLE, EVENT_DESCRIPTION]
+EVENT_FIELD_NAMES = [EVENT_DATE, EVENT_TIME, EVENT_TITLE, EVENT_DESCRIPTION]
+
+# Tabulete table
+TABLE_EVENT_DATE = "Event Date"
+TABLE_EVENT_INFO = "Event Info"
 
 # Menu
 SEPARATOR = "====================================="
@@ -33,7 +38,7 @@ MAIN_MENU_WRONG_NUMBER_WRITTEN = (
 )
 ENTER_TO_CONTINUE = "Press ENTER to continue..."
 
-MAIN_MENU_INSTRUCTION = "This is what you can do here.\nChoose menu item by entering its number and press ENTER.\nFurther instructions will be provided under each menu.\nGood luck! 🤓\n"
+MAIN_MENU_INSTRUCTION = "Choose menu item by entering its number and press ENTER.\nFurther instructions will be provided under each menu.\n"
 MAIN_MENU_ADD_EVENT = " Add an event"
 MAIN_MENU_REMOVE_EVENT = " Remove an event"
 MAIN_MENU_SHOW_SCHEDULE = " Show schedule"
@@ -59,7 +64,7 @@ ADD_EVENT_INVALID_DATE = (
     f"{CRED}Invalid date format!\nEnter date in this format: {BOLD}YYYY-MM-DD{END}"
 )
 ADD_EVENT_INVALID_TIME = (
-    f"{CRED}Invalid time format!\nEnter time in this format: {BOLD}HH:MM{END}"
+    f"{CRED}Invalid time format!\nEnter time in this format: {BOLD}HH{END}"
 )
 ADD_EVENT_EXIST = f"{CRED}Another event exists at this time!{END}"
 
@@ -73,3 +78,4 @@ ADD_EVENT_TOO_LONG_DESCRIPTION = (
     + "{lenght})!\nMake it up to "
     + f"{BOLD}200{END} {CRED}symbols{END}"
 )
+ADD_EVENT_CREATED = "\nNew event has been created:"

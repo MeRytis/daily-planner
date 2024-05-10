@@ -1,2 +1,4 @@
-start_time,title,description
-"2024-05-09, 12:00",Standup,turing standup
+start_date,start_time,title,description
+2024-05-09,12:00,Stand-Up,Turing Stand-Up
+2024-05-10,11:00,Open Session,Turing session
+2024-05-11,18:00,PR review,JTL PR review
