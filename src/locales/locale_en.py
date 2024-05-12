@@ -24,10 +24,11 @@ EVENT_FIELD_NAMES = [EVENT_DATE, EVENT_TIME, EVENT_TITLE, EVENT_DESCRIPTION]
 
 # Tabulete table
 TABLE_EVENT_DATE = "Event Date"
+TABLE_EVENT_TIME = "Event Time"
 TABLE_EVENT_INFO = "Event Info"
 
 # Menu
-SEPARATOR = "====================================="
+SEPARATOR = "============================================="
 WELCOME = "Welcome to Planner application!"
 GOODBYE = "Goodbye!"
 MENU = f"{SEPARATOR}\n\tMenu\n{SEPARATOR}"
@@ -53,6 +54,8 @@ MAIN_MENU_TITLES = [
     MAIN_MENU_SHOW_HOLIDAYS,
     MAIN_MENU_EXIT,
 ]
+DAY_SCHEDULE_TITLE = f"Schedule of day: {BOLD}" + "{date}" + f"{END}"
+NO_EVENTS = f"There are no events for date {BOLD}" + "{date}" + f"{END}"
 
 # Add event menu
 ADD_EVENT_INFO = f"You will be asked new event details bellow.\nIn case you want to cancel it and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
@@ -78,4 +81,5 @@ ADD_EVENT_TOO_LONG_DESCRIPTION = (
     + "{lenght})!\nMake it up to "
     + f"{BOLD}200{END} {CRED}symbols{END}"
 )
+PAST_DATE_ERROR = f"{BOLD}{CRED}Provided date is in past!{END}"
 ADD_EVENT_CREATED = "\nNew event has been created:"

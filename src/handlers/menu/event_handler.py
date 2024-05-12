@@ -15,17 +15,30 @@ def convert_row_to_event(row: dict) -> Event:
     )
 
 
-def get_event(start_date: datetime, start_time: time) -> Event:
+def get_particular_event(start_date: datetime, start_time) -> Event:
     try:
         with open(locale.EVENTS_FILE) as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if (
                     start_date.strftime("%Y-%m-%d") == row[locale.EVENT_DATE]
-                    and start_time.strftime("%H:%M") == row[locale.EVENT_TIME]
+                    and time.strftime("%H:%M", start_time) == row[locale.EVENT_TIME]
                 ):
                     return convert_row_to_event(row)
         return None
+    except FileNotFoundError:
+        return None
+
+
+def get_particular_day_events(start_date: datetime):
+    events = []
+    try:
+        with open(locale.EVENTS_FILE) as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if start_date.strftime("%Y-%m-%d") == row[locale.EVENT_DATE]:
+                    events.append(convert_row_to_event(row))
+            return None if len(events) == 0 else events
     except FileNotFoundError:
         return None
 
@@ -37,19 +50,24 @@ def get_start_date_input() -> datetime:
         except ValueError:
             print(locale.ADD_EVENT_INVALID_DATE)
         else:
-            return start_date
+            if start_date.replace(hour=datetime.now().hour + 1) < datetime.now():
+                print(locale.PAST_DATE_ERROR)
+            else:
+                return start_date
 
 
-def get_start_time_input(start_date: datetime) -> time:
+def get_start_time_input(start_date: datetime):
     while True:
         try:
             start_time = time.strptime(input(locale.ADD_EVENT_TIME), "%H")
         except ValueError:
             print(locale.ADD_EVENT_INVALID_TIME)
         else:
-            existing_event = get_event(start_date, start_time)
+            existing_event = get_particular_event(start_date, start_time)
             if existing_event:
-                print(locale.ADD_EVENT_EXIST)
+                print(locale.ADD_EVENT_EXIST, existing_event, sep="\n")
+            elif start_time.tm_hour < time.gmtime().tm_hour:
+                print(locale.PAST_DATE_ERROR)
             else:
                 return start_time
 

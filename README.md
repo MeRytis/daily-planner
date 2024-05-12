@@ -17,7 +17,7 @@ Turing College Web Development course module 1 capstone project
      - Show public holidays in LT;
      - Exit the program.
 4. **Add an event**
-   - Program should ask to enter details of event: date, time (by default event takes 1 hour), title, description;
+   - Program should ask to enter details of event: date, time (by default event is 1 hour long), title, description;
      - Validations:
        - Date: >= _current date_ in format YYYY-MM-DD;
        - Time: hour when event must start 0 <= _time_ < 23;
@@ -25,15 +25,10 @@ Turing College Web Development course module 1 capstone project
        - Description: max 200 symbols;
        - Event: 1 event per hour.
    - After details are entered, program saves an event and prints notification about it;
-   - Program prints schedule of day which event was created in ascii format;
    - By pressing enter user should be thrown to main menu.
 5. **Remove an event**
-   - User must enter the date of event he would like to remove;
-   - Application lists all the events of that day;
-   - User selects event (by id) to be deleted;
-     - Validation of wrong id entered must be implemented;
+   - User must enter the date and time of event he would like to remove;
    - Program informs about deleted event;
-   - Program prints updated schedule of that date;
    - By pressing enter user shoould be thrown to main menu.
 7. **Exit the program**
    - Program prints **_Good Bye!!!_** and tell that loud;
