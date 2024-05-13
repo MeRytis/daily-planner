@@ -1,7 +1,11 @@
 import locales.locale_en as locale
 import sys
 import time
-from handlers.menu.event_handler import create_new_event, get_particular_day_events
+from handlers.menu.event_handler import (
+    create_new_event,
+    get_particular_day_events,
+    delete_event,
+)
 from os import system
 from datetime import datetime
 from prettytable import PrettyTable, ALL
@@ -16,7 +20,8 @@ def add_event() -> None:
 
 def remove_event() -> None:
     system(locale.SYSTEM_CLEAR)
-    input("Remove an event")
+    print(locale.DELETE_EVENT_INFO)
+    delete_event()
     system(locale.SYSTEM_CLEAR)
 
 
@@ -68,8 +73,8 @@ def select_menu_item(functions: list, menu_titles: list[str]) -> list:
 
 def print_today_schedule() -> None:
     current_date = datetime.now()
-    current_date_formatted = current_date.strftime("%Y-%m-%d")
     events = get_particular_day_events(current_date)
+    current_date_formatted = current_date.strftime("%Y-%m-%d")
     if events:
         table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
         table.title = locale.DAY_SCHEDULE_TITLE.format(date=current_date_formatted)
@@ -77,7 +82,7 @@ def print_today_schedule() -> None:
         for event in events:
             table.add_row(
                 [
-                    time.strftime("%H:%M", event.start_time),
+                    event.date.strftime("%H:%M"),
                     f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
                 ]
             )

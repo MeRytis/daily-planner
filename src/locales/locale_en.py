@@ -16,11 +16,10 @@ FILE_READ = "r"
 SYSTEM_CLEAR = "clear"
 
 # CSV field names
-EVENT_DATE = "start_date"
-EVENT_TIME = "start_time"
+EVENT_DATE = "date"
 EVENT_TITLE = "title"
 EVENT_DESCRIPTION = "description"
-EVENT_FIELD_NAMES = [EVENT_DATE, EVENT_TIME, EVENT_TITLE, EVENT_DESCRIPTION]
+EVENT_FIELD_NAMES = [EVENT_DATE, EVENT_TITLE, EVENT_DESCRIPTION]
 
 # Tabulete table
 TABLE_EVENT_DATE = "Event Date"
@@ -55,10 +54,10 @@ MAIN_MENU_TITLES = [
     MAIN_MENU_EXIT,
 ]
 DAY_SCHEDULE_TITLE = f"Schedule of day: {BOLD}" + "{date}" + f"{END}"
-NO_EVENTS = f"There are no events for date {BOLD}" + "{date}" + f"{END}"
+NO_EVENTS = f"There are no events on date {BOLD}" + "{date}" + f"{END}"
 
 # Add event menu
-ADD_EVENT_INFO = f"You will be asked new event details bellow.\nIn case you want to cancel it and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
+ADD_EVENT_INFO = f"{SEPARATOR * 2}\nYou will be asked new event details bellow.\nIn case you want to cancel it and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
 ADD_EVENT_DATE = "Enter event start date (YYYY-MM-DD): "
 ADD_EVENT_TIME = "Enter event start time: "
 ADD_EVENT_TITLE = "Enter event title (max 30 symbols): "
@@ -83,3 +82,7 @@ ADD_EVENT_TOO_LONG_DESCRIPTION = (
 )
 PAST_DATE_ERROR = f"{BOLD}{CRED}Provided date is in past!{END}"
 ADD_EVENT_CREATED = "\nNew event has been created:"
+
+# Remove event
+DELETE_EVENT_INFO = f"{SEPARATOR * 2}\nIn order to remove an event, please, provide information required bellow\nIn case you want to cancel this action and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
+DELETE_EVENT_DELETED = "\nEvent has been removed:"

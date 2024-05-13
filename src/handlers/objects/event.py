@@ -1,16 +1,14 @@
 from datetime import datetime
 from prettytable import PrettyTable
-import time
+from tempfile import NamedTemporaryFile
+import shutil
 import csv
 import locales.locale_en as locale
 
 
 class Event:
-    def __init__(
-        self, start_date: datetime, start_time: time, title: str, description: str
-    ) -> None:
-        self.start_date = start_date
-        self.start_time = start_time
+    def __init__(self, date: datetime, title: str, description: str) -> None:
+        self.date = date
         self.title = title
         self.description = description
 
@@ -19,7 +17,7 @@ class Event:
         table.field_names = [locale.TABLE_EVENT_DATE, locale.TABLE_EVENT_INFO]
         table.add_row(
             [
-                f"{self.start_date.strftime('%Y-%m-%d')} {time.strftime('%H:%M', self.start_time)}",
+                f"{self.date.strftime('%Y-%m-%d %H:%M')}",
                 f"{locale.BOLD}{self.title}{locale.END}\n{self.description}",
             ]
         )
@@ -30,8 +28,7 @@ class Event:
             writer = csv.DictWriter(file, fieldnames=locale.EVENT_FIELD_NAMES)
             writer.writerow(
                 {
-                    locale.EVENT_DATE: self.start_date.strftime("%Y-%m-%d"),
-                    locale.EVENT_TIME: time.strftime("%H:%M", self.start_time),
+                    locale.EVENT_DATE: self.date.strftime("%Y-%m-%d %H:%M"),
                     locale.EVENT_TITLE: self.title,
                     locale.EVENT_DESCRIPTION: self.description,
                 }
@@ -56,3 +53,19 @@ class Event:
         else:
             self.__create_data_file()
             self.__write_to_file()
+
+    def delete(self) -> None:
+        tempfile = NamedTemporaryFile(mode=locale.FILE_WRITE, delete=False)
+        with open(locale.EVENTS_FILE, locale.FILE_READ) as csvfile, tempfile:
+            reader = csv.DictReader(csvfile, fieldnames=locale.EVENT_FIELD_NAMES)
+            writer = csv.DictWriter(tempfile, fieldnames=locale.EVENT_FIELD_NAMES)
+            for row in reader:
+                if row[locale.EVENT_DATE] != self.date.strftime("%Y-%m-%d %H:%M"):
+                    writer.writerow(
+                        {
+                            locale.EVENT_DATE: row[locale.EVENT_DATE],
+                            locale.EVENT_TITLE: row[locale.EVENT_TITLE],
+                            locale.EVENT_DESCRIPTION: row[locale.EVENT_DESCRIPTION],
+                        }
+                    )
+        shutil.move(tempfile.name, locale.EVENTS_FILE)

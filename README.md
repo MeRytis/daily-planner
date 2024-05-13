@@ -8,7 +8,7 @@ Turing College Web Development course module 1 capstone project
 1. CLI is an interface for the program.
 2. *.csv file should be used as a data source.
 3. When application starts it must show:
-   - Current day schedule in ascii table format;
+   - Current day schedule sorted by time in ascii table format;
    - Menu of application:
      - Add an event;
      - Remove an event;
@@ -31,8 +31,7 @@ Turing College Web Development course module 1 capstone project
    - Program informs about deleted event;
    - By pressing enter user shoould be thrown to main menu.
 7. **Exit the program**
-   - Program prints **_Good Bye!!!_** and tell that loud;
-   - Program exits with exit code 0. 
+   - Program prints **_Good Bye!!!_**;
 
 ### MVP_2
 1. **Show schedule**
