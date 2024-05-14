@@ -5,10 +5,36 @@ from handlers.menu.event_handler import (
     create_new_event,
     get_particular_day_events,
     delete_event,
+    search_in_events,
 )
 from os import system
-from datetime import datetime
+from datetime import datetime, timedelta
 from prettytable import PrettyTable, ALL
+from pynput import keyboard
+
+
+def print_day_schedule(date: datetime) -> None:
+    events = get_particular_day_events(date)
+    date_formatted = date.strftime("%Y-%m-%d")
+    if events:
+        table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
+        table.title = locale.DAY_SCHEDULE_TITLE.format(date=date_formatted)
+        table.hrules = ALL
+        for event in events:
+            table.add_row(
+                [
+                    event.date.strftime("%H:%M"),
+                    f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
+                ]
+            )
+        print(table.get_string())
+    else:
+        print(
+            locale.SEPARATOR,
+            locale.NO_EVENTS.format(date=date_formatted),
+            locale.SEPARATOR,
+            sep="\n",
+        )
 
 
 def add_event() -> None:
@@ -27,13 +53,37 @@ def remove_event() -> None:
 
 def show_schedule() -> None:
     system(locale.SYSTEM_CLEAR)
-    input("Show schedule")
-    system(locale.SYSTEM_CLEAR)
+    print(locale.SHOW_SCHEDULE_INFO)
+    date = datetime.now()
+    try:
+        while True:
+            print_day_schedule(date)
+            input()
+            system(locale.SYSTEM_CLEAR)
+            date = date + timedelta(days=1)
+    except EOFError:
+        system(locale.SYSTEM_CLEAR)
 
 
 def search_event() -> None:
     system(locale.SYSTEM_CLEAR)
-    input("Search for an event")
+    print(locale.SEARCH_EVENT_INFO)
+    search_phrase = input(locale.SEARCH_EVENT_ENTER_PHRASE)
+    events = search_in_events(search_phrase)
+    if events:
+        table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
+        table.hrules = ALL
+        for event in events:
+            table.add_row(
+                [
+                    event.date.strftime("%Y-%m-%d %H:%M"),
+                    f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
+                ]
+            )
+        print(table.get_string())
+    else:
+        print(locale.SEARCH_EVENT_NOT_FOUND.format(phrase=search_phrase))
+    input(locale.ENTER_TO_CONTINUE)
     system(locale.SYSTEM_CLEAR)
 
 
@@ -71,35 +121,11 @@ def select_menu_item(functions: list, menu_titles: list[str]) -> list:
                 return functions[selection - 1]
 
 
-def print_today_schedule() -> None:
-    current_date = datetime.now()
-    events = get_particular_day_events(current_date)
-    current_date_formatted = current_date.strftime("%Y-%m-%d")
-    if events:
-        table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
-        table.title = locale.DAY_SCHEDULE_TITLE.format(date=current_date_formatted)
-        table.hrules = ALL
-        for event in events:
-            table.add_row(
-                [
-                    event.date.strftime("%H:%M"),
-                    f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
-                ]
-            )
-        print(table.get_string())
-    else:
-        print(
-            locale.SEPARATOR,
-            locale.NO_EVENTS.format(date=current_date_formatted),
-            sep="\n",
-        )
-
-
 def open_main_menu() -> None:
     print(
         locale.BOLD, locale.WELCOME, locale.END, locale.MAIN_MENU_INSTRUCTION, sep="\n"
     )
-    print_today_schedule()
+    print_day_schedule(datetime.now())
     while True:
         select_menu_item(
             [add_event, remove_event, show_schedule, search_event, show_holidays, exit],

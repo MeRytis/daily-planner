@@ -35,14 +35,14 @@ Turing College Web Development course module 1 capstone project
 
 ### MVP_2
 1. **Show schedule**
-   - User needs to enter date of schedule;
-     - Validations:
-       - Date: >= _current date_ in format YYYY-MM-DD;
+   - Program prints the information about this menu and how to navigate between the dates:
+      - Next day schedule by pressing ENTER
+      - Exit menu by pressing CTRL+D
    - Program prints selected day schedule in ascii table format;
-   - By pressing enter user should be thrown to main menu.
+   - If there are no events on the date, program should inform user about that.
 2. **Search for an event**
-   - User should enter phrase of event title to search;
-   - Program makes a search in all event titles and returns the list of events that contains provided text in ascii format table;
+   - User should enter phrase or date of event to search;
+   - Program makes a search in all event dates, titles, descriptions and returns the list of events that contains provided phrase/date in ascii format table;
    - By pressing enter user should be thrown to main menu.
 
 ### MVP_3

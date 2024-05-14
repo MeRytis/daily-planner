@@ -57,7 +57,7 @@ DAY_SCHEDULE_TITLE = f"Schedule of day: {BOLD}" + "{date}" + f"{END}"
 NO_EVENTS = f"There are no events on date {BOLD}" + "{date}" + f"{END}"
 
 # Add event menu
-ADD_EVENT_INFO = f"{SEPARATOR * 2}\nYou will be asked new event details bellow.\nIn case you want to cancel it and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
+ADD_EVENT_INFO = f"{SEPARATOR * 2}\nYou will be asked new event details bellow.\nIn case you want to cancel it and exit to main menu, press {BOLD}CTRL+D{END}.\n{SEPARATOR * 2}"
 ADD_EVENT_DATE = "Enter event start date (YYYY-MM-DD): "
 ADD_EVENT_TIME = "Enter event start time: "
 ADD_EVENT_TITLE = "Enter event title (max 30 symbols): "
@@ -84,5 +84,15 @@ PAST_DATE_ERROR = f"{BOLD}{CRED}Provided date is in past!{END}"
 ADD_EVENT_CREATED = "\nNew event has been created:"
 
 # Remove event
-DELETE_EVENT_INFO = f"{SEPARATOR * 2}\nIn order to remove an event, please, provide information required bellow\nIn case you want to cancel this action and exit to main menu, press CTRL+D.\n{SEPARATOR * 2}"
+DELETE_EVENT_INFO = f"{SEPARATOR * 2}\nIn order to remove an event, please, provide information required bellow\nIn case you want to cancel this action and exit to main menu, press {BOLD}CTRL+D{END}.\n{SEPARATOR * 2}"
 DELETE_EVENT_DELETED = "\nEvent has been removed:"
+
+# Show schedule
+SHOW_SCHEDULE_INFO = f"{SEPARATOR * 2}\nBellow you can see the list of events today\nPress {BOLD}ENTER{END} if you want to see schedule of next\nIn order to exit this menu, press {BOLD}CTRL+D{END}\n{SEPARATOR * 2}"
+
+# Search event
+SEARCH_EVENT_INFO = f"{SEPARATOR * 2}\nSearch is valid in date, title and description rows\n{SEPARATOR * 2}"
+SEARCH_EVENT_ENTER_PHRASE = "Enter the phrase/date for event to search: "
+SEARCH_EVENT_NOT_FOUND = (
+    f"No events found for phrase/date {BOLD}" + "{phrase}" + f"{END}"
+)

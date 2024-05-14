@@ -12,6 +12,27 @@ def convert_row_to_event(row: dict) -> Event:
     )
 
 
+def search_in_events(phrase: str) -> list[Event] | None:
+    events = []
+    try:
+        with open(locale.EVENTS_FILE) as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if (
+                    phrase in row[locale.EVENT_DATE]
+                    or phrase in row[locale.EVENT_TITLE]
+                    or phrase in row[locale.EVENT_DESCRIPTION]
+                ):
+                    events.append(convert_row_to_event(row))
+            return (
+                None
+                if len(events) == 0
+                else sorted(events, key=lambda event: event.date)
+            )
+    except FileNotFoundError:
+        return None
+
+
 def get_particular_event(start_date: datetime) -> Event | None:
     try:
         with open(locale.EVENTS_FILE) as file:
