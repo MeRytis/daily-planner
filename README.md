@@ -46,16 +46,13 @@ Turing College Web Development course module 1 capstone project
    - By pressing enter user should be thrown to main menu.
 
 ### MVP_3
+1. **Show public holidays in LT today**
+   - Program prints holidays for current date or inform user about not existing holidays on current date (current date is choosen because of free API usage restrictions);
+   - By pressing enter user should be thrown to main menu.
+
+### MVP_4
 1. 3 unit tests must be created for covering most crutual code places.
 2. Source code must have project structure.
 3. DocStrings must be used.
 4. Type hints should define parameters.
 5. Instruction of application must be added to this file.
-
-### MVP_4
-1. **Show public holidays in LT**
-   - User needs to enter date of interesting date for holidays;
-     - Validations:
-       - Date: >= _current date_ in format YYYY-MM-DD;
-   - Program prints holidays for that date or inform user about not existing holidays on that date;
-   - By pressing enter user should be thrown to main menu.

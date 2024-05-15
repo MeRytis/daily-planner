@@ -7,6 +7,7 @@ from handlers.menu.event_handler import (
     delete_event,
     search_in_events,
 )
+from handlers.menu.holiday_handler import get_holidays_current_date_lt
 from os import system
 from datetime import datetime, timedelta
 from prettytable import PrettyTable, ALL
@@ -89,7 +90,30 @@ def search_event() -> None:
 
 def show_holidays() -> None:
     system(locale.SYSTEM_CLEAR)
-    input("Show public holidays in LT")
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    print(locale.SHOW_HOLIDAYS_INFO.format(date=current_date))
+    holidays = get_holidays_current_date_lt()
+    if holidays:
+        table = PrettyTable(
+            [
+                locale.TABLE_HOLIDAY_DATE,
+                locale.TABLE_HOLIDAY_INFO,
+                locale.TABLE_HOLIDAY_TYPE,
+            ]
+        )
+        table.hrules = ALL
+        for holiday in holidays:
+            table.add_row(
+                [
+                    f"{holiday['date_year']}-{holiday['date_month']}-{holiday['date_day']}\n{holiday['week_day']}",
+                    holiday["name"],
+                    holiday["type"],
+                ]
+            )
+        print(table.get_string())
+    else:
+        print(locale.SHOW_HOLIDAYS_NO_EVENTS.format(date=current_date))
+    input(locale.ENTER_TO_CONTINUE)
     system(locale.SYSTEM_CLEAR)
 
 
@@ -121,7 +145,7 @@ def select_menu_item(functions: list, menu_titles: list[str]) -> list:
                 return functions[selection - 1]
 
 
-def open_main_menu() -> None:
+def open_main_menu():
     print(
         locale.BOLD, locale.WELCOME, locale.END, locale.MAIN_MENU_INSTRUCTION, sep="\n"
     )

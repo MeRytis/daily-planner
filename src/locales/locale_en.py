@@ -25,6 +25,9 @@ EVENT_FIELD_NAMES = [EVENT_DATE, EVENT_TITLE, EVENT_DESCRIPTION]
 TABLE_EVENT_DATE = "Event Date"
 TABLE_EVENT_TIME = "Event Time"
 TABLE_EVENT_INFO = "Event Info"
+TABLE_HOLIDAY_DATE = "Holiday Date"
+TABLE_HOLIDAY_INFO = "Holiday Info"
+TABLE_HOLIDAY_TYPE = "Holiday Type"
 
 # Menu
 SEPARATOR = "============================================="
@@ -43,7 +46,7 @@ MAIN_MENU_ADD_EVENT = " Add an event"
 MAIN_MENU_REMOVE_EVENT = " Remove an event"
 MAIN_MENU_SHOW_SCHEDULE = " Show schedule"
 MAIN_MENU_SEARCH_EVENT = " Search for an event"
-MAIN_MENU_SHOW_HOLIDAYS = " Show public holidays in LT"
+MAIN_MENU_SHOW_HOLIDAYS = " Show public holidays in LT today"
 MAIN_MENU_EXIT = " Exit"
 MAIN_MENU_TITLES = [
     MAIN_MENU_ADD_EVENT,
@@ -96,3 +99,11 @@ SEARCH_EVENT_ENTER_PHRASE = "Enter the phrase/date for event to search: "
 SEARCH_EVENT_NOT_FOUND = (
     f"No events found for phrase/date {BOLD}" + "{phrase}" + f"{END}"
 )
+
+# Show holidays
+SHOW_HOLIDAYS_INFO = (
+    f"{SEPARATOR * 2}\nBellow holidays of today {BOLD}"
+    + "{date}"
+    + f"{END} is listed\n{SEPARATOR * 2}"
+)
+SHOW_HOLIDAYS_NO_EVENTS = f"There are no holidays on date {BOLD}" + "{date}" + f"{END}"
