@@ -3,6 +3,9 @@ BOLD = "\033[1m"
 CRED = "\033[91m"
 CGREEN = "\033[32m"
 END = "\033[0m"
+DATE_FORMAT = "%Y-%m-%d"
+TIME_FORMAT = "%H:%M"
+DATE_TIME_FORMAT = f"{DATE_FORMAT} {TIME_FORMAT}"
 
 # Data files
 EVENTS_FILE = "data/events.csv"

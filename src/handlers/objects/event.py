@@ -17,7 +17,7 @@ class Event:
         table.field_names = [locale.TABLE_EVENT_DATE, locale.TABLE_EVENT_INFO]
         table.add_row(
             [
-                f"{self.date.strftime('%Y-%m-%d %H:%M')}",
+                f"{self.date.strftime(locale.DATE_TIME_FORMAT)}",
                 f"{locale.BOLD}{self.title}{locale.END}\n{self.description}",
             ]
         )
@@ -28,7 +28,7 @@ class Event:
             writer = csv.DictWriter(file, fieldnames=locale.EVENT_FIELD_NAMES)
             writer.writerow(
                 {
-                    locale.EVENT_DATE: self.date.strftime("%Y-%m-%d %H:%M"),
+                    locale.EVENT_DATE: self.date.strftime(locale.DATE_TIME_FORMAT),
                     locale.EVENT_TITLE: self.title,
                     locale.EVENT_DESCRIPTION: self.description,
                 }
@@ -60,7 +60,9 @@ class Event:
             reader = csv.DictReader(csvfile, fieldnames=locale.EVENT_FIELD_NAMES)
             writer = csv.DictWriter(tempfile, fieldnames=locale.EVENT_FIELD_NAMES)
             for row in reader:
-                if row[locale.EVENT_DATE] != self.date.strftime("%Y-%m-%d %H:%M"):
+                if row[locale.EVENT_DATE] != self.date.strftime(
+                    locale.DATE_TIME_FORMAT
+                ):
                     writer.writerow(
                         {
                             locale.EVENT_DATE: row[locale.EVENT_DATE],

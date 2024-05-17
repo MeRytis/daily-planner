@@ -3,7 +3,7 @@ import sys
 import time
 from handlers.menu.event_handler import (
     create_new_event,
-    get_particular_day_events,
+    get_event_by_date,
     delete_event,
     search_in_events,
 )
@@ -14,21 +14,31 @@ from prettytable import PrettyTable, ALL
 from pynput import keyboard
 
 
+def print_table(title: str | None, header: list[str], rows: list[list[str]]) -> None:
+    table = PrettyTable(header)
+    table.title = title
+    table.hrules = ALL
+    table.add_rows(rows)
+    print(table.get_string())
+
+
 def print_day_schedule(date: datetime) -> None:
-    events = get_particular_day_events(date)
-    date_formatted = date.strftime("%Y-%m-%d")
+    events = get_event_by_date(date)
+    date_formatted = date.strftime(locale.DATE_FORMAT)
     if events:
-        table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
-        table.title = locale.DAY_SCHEDULE_TITLE.format(date=date_formatted)
-        table.hrules = ALL
+        rows = []
         for event in events:
-            table.add_row(
+            rows.append(
                 [
-                    event.date.strftime("%H:%M"),
+                    event.date.strftime(locale.TIME_FORMAT),
                     f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
                 ]
             )
-        print(table.get_string())
+        print_table(
+            locale.DAY_SCHEDULE_TITLE.format(date=date_formatted),
+            [locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO],
+            rows,
+        )
     else:
         print(
             locale.SEPARATOR,
@@ -72,16 +82,15 @@ def search_event() -> None:
     search_phrase = input(locale.SEARCH_EVENT_ENTER_PHRASE)
     events = search_in_events(search_phrase)
     if events:
-        table = PrettyTable([locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO])
-        table.hrules = ALL
+        rows = []
         for event in events:
-            table.add_row(
+            rows.append(
                 [
-                    event.date.strftime("%Y-%m-%d %H:%M"),
+                    event.date.strftime(locale.DATE_TIME_FORMAT),
                     f"{locale.BOLD}{event.title}{locale.END}\n{event.description}",
                 ]
             )
-        print(table.get_string())
+        print_table(None, [locale.TABLE_EVENT_TIME, locale.TABLE_EVENT_INFO], rows)
     else:
         print(locale.SEARCH_EVENT_NOT_FOUND.format(phrase=search_phrase))
     input(locale.ENTER_TO_CONTINUE)
@@ -90,27 +99,28 @@ def search_event() -> None:
 
 def show_holidays() -> None:
     system(locale.SYSTEM_CLEAR)
-    current_date = datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now().strftime(locale.DATE_FORMAT)
     print(locale.SHOW_HOLIDAYS_INFO.format(date=current_date))
     holidays = get_holidays_current_date_lt()
     if holidays:
-        table = PrettyTable(
-            [
-                locale.TABLE_HOLIDAY_DATE,
-                locale.TABLE_HOLIDAY_INFO,
-                locale.TABLE_HOLIDAY_TYPE,
-            ]
-        )
-        table.hrules = ALL
+        rows = []
         for holiday in holidays:
-            table.add_row(
+            rows.append(
                 [
                     f"{holiday['date_year']}-{holiday['date_month']}-{holiday['date_day']}\n{holiday['week_day']}",
                     holiday["name"],
                     holiday["type"],
                 ]
             )
-        print(table.get_string())
+        print_table(
+            None,
+            [
+                locale.TABLE_HOLIDAY_DATE,
+                locale.TABLE_HOLIDAY_INFO,
+                locale.TABLE_HOLIDAY_TYPE,
+            ],
+            rows,
+        )
     else:
         print(locale.SHOW_HOLIDAYS_NO_EVENTS.format(date=current_date))
     input(locale.ENTER_TO_CONTINUE)
@@ -131,7 +141,6 @@ def print_menu(menu: dict) -> None:
 
 def select_menu_item(functions: list, menu_titles: list[str]) -> list:
     menu = dict(enumerate(menu_titles, start=1))
-
     print_menu(menu)
     while True:
         try:
